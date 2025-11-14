@@ -54,7 +54,7 @@ const { isLoading: isLoading1, error: error1, data:data1 } = useQuery({
 
   if (isLoading)
     return (
-      <div className="text-center pt-[250px]">
+      <div className="text-center pt-[250px] mx-auto">
         <ScaleLoader height={100} width={8} color="#CFE3C9" />
       </div>
     );
@@ -84,7 +84,7 @@ const { isLoading: isLoading1, error: error1, data:data1 } = useQuery({
             </Button>
           </Link>
         </div>
-        <img src={turtule} className="w-[810px] h-[710px] xl:w-[530px] xl:h-[470px] lg:w-[480px] lg:h-[380px]
+        <img src={turtule} className="w-[810px] h-[710px] xl:w-[490px] xl:h-[400px] lg:w-[480px] lg:h-[380px]
         md:w-[480px] md:h-[400px] sm:w-[480px] sm:h-[400px]" alt="" />
         </div>
       </section>
@@ -192,7 +192,7 @@ const { isLoading: isLoading1, error: error1, data:data1 } = useQuery({
         </Link>
       </section>
 
-      <section className="my-20">
+      <section className="">
         <CarouselWithContent/>
       </section>
 
