@@ -16,8 +16,16 @@ import { IoSunnyOutline } from "react-icons/io5";
 
 const Sidebar = () => {
   const { pathname } = useLocation();
-  const [isDark, setIsDark] = useState(false);
+  const isDark = useDarkMode((state) => state.isDark)
+  const changeMode = useDarkMode((state) => state.changeMode)
 
+  useEffect(()=>{
+      if (isDark) {
+      document.body.classList.add("dark");
+    }else{
+      document.body.classList.remove("dark");
+    }
+    }, [isDark])
   function change() {
     document.documentElement.classList.toggle("dark");
     setIsDark((v) => !v);
@@ -95,7 +103,7 @@ const Sidebar = () => {
         <div className="mt-auto px-3 pt-4">
           {/* theme toggle */}
           <button
-            onClick={change}
+            onClick={changeMode}
             className="
               w-full flex items-center justify-between
               rounded-xl px-4 py-3
