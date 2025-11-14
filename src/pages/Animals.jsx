@@ -20,7 +20,7 @@ const DescriptionCell = ({ text }) => {
   const hasMore = words.length > 4;
 
   return (
-    <div className="text-sm leading-relaxed text-[#0A2317] dark:text-[#A8D29B]">
+    <div className="text-[10px] xs:text-[11px] sm:text-xs md:text-sm leading-relaxed text-[#0A2317] dark:text-[#A8D29B]">
       <span>{shortText}</span>
       {hasMore && !expanded && (
         <span
@@ -35,7 +35,7 @@ const DescriptionCell = ({ text }) => {
           <p>{restText}</p>
           <span
             onClick={() => setExpanded(false)}
-            className="mt-1 block cursor-pointer text-sm font-medium text-[#28604F] hover:underline dark:text-[#A8D29B]"
+            className="mt-1 block cursor-pointer text-[10px] xs:text-[11px] sm:text-xs font-medium text-[#28604F] hover:underline dark:text-[#A8D29B]"
           >
             Hide
           </span>
@@ -72,35 +72,44 @@ const Animals = () => {
 
   if (isLoading)
     return (
-      <div className="text-center pt-[250px]">
-        <ScaleLoader height={100} width={8} color="#CFE3C9" />
+      <div className="text-center pt-[150px] sm:pt-[200px] md:pt-[250px]">
+        <ScaleLoader height={80} width={6} color="#CFE3C9" />
       </div>
     );
 
   if (error) return <h1>{error.message}</h1>;
 
   return (
-    <div className="w-full bg-[#E3EFEA] dark:bg-[#101715] px-4 md:px-8 py-8">
-      <Card className="w-full shadow-xl rounded-2xl
+    <div className="w-full min-h-screen bg-[#E3EFEA] dark:bg-[#101715] px-2 xs:px-3 sm:px-4 md:px-6 lg:px-8 py-4 md:py-8">
+      <Card className="w-full max-w-6xl mx-auto shadow-xl rounded-2xl
        overflow-hidden border border-gray-200 dark:border-[#3B6145]
         bg-white dark:bg-[#18211E] transition-all duration-300">
         
-        <div className="px-6 py-4 border-b border-gray-200 dark:border-[#3B6145] flex
-         justify-between items-center bg-[#f8f9f7] dark:bg-[#1a2721]">
-          <Typography variant="h5" className="text-[#0A2317] dark:text-[#A8D29B] font-semibold">
+        {/* Header */}
+        <div className="px-3 xs:px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-200 dark:border-[#3B6145] 
+          flex items-center justify-between gap-2 bg-[#f8f9f7] dark:bg-[#1a2721]">
+          <Typography
+            variant="h5"
+            className="text-sm xs:text-base sm:text-lg md:text-xl text-[#0A2317] dark:text-[#A8D29B] font-semibold"
+          >
             🐾 Animals List
           </Typography>
-          <Modal />
+          <div className="shrink-0">
+            <Modal />
+          </div>
         </div>
 
-        <div className="overflow-x-auto pr-2">
-          <table className="w-full text-left">
+        {/* Table */}
+        <div className="overflow-x-auto">
+          <table className="w-full text-left min-w-[600px]">
             <thead className="sticky top-0 bg-[#CFE3C9] dark:bg-[#3B6145] z-10">
               <tr>
                 {TABLE_HEAD.map((head) => (
                   <th
                     key={head}
-                    className="p-4 text-sm font-semibold uppercase tracking-wide text-[#0A2317] dark:text-[#A8D29B] border-b border-black/5 dark:border-white/10"
+                    className="p-2 xs:p-3 md:p-4 text-[9px] xs:text-[10px] sm:text-xs md:text-sm 
+                    font-semibold uppercase tracking-wide text-[#0A2317] dark:text-[#A8D29B] 
+                    border-b border-black/5 dark:border-white/10"
                   >
                     {head}
                   </th>
@@ -108,11 +117,11 @@ const Animals = () => {
               </tr>
             </thead>
             <tbody>
-              {data.length === 0 ? (
+              {(!data || data.length === 0) ? (
                 <tr>
                   <td
                     colSpan={7}
-                    className="p-10 text-center text-gray-500 dark:text-[#A8D29B] text-sm"
+                    className="p-6 sm:p-8 md:p-10 text-center text-[11px] sm:text-sm text-gray-500 dark:text-[#A8D29B]"
                   >
                     No animals yet. Click <span className="font-semibold">Add</span> to create one 🐢
                   </td>
@@ -125,53 +134,68 @@ const Animals = () => {
                       index % 2 === 0 ? "bg-white dark:bg-[#18211E]" : "bg-[#F7FAF7] dark:bg-[#1a2721]"
                     } hover:bg-[#E6F1EC] dark:hover:bg-[#243a2f]`}
                   >
-                    <td className="p-4">
+                    {/* Image */}
+                    <td className="p-2 xs:p-3 md:p-4">
                       <img
                         src={animal.img}
                         alt={animal.name}
-                        className="h-14 w-14 rounded-lg object-cover shadow-md ring-1 ring-gray-300 dark:ring-[#3B6145]"
+                        className="h-10 w-10 xs:h-11 xs:w-11 sm:h-12 sm:w-12 md:h-14 md:w-14 
+                        rounded-lg object-cover shadow-md ring-1 ring-gray-300 dark:ring-[#3B6145]"
                       />
                     </td>
 
-                    <td className="p-4 align-top font-medium text-[#0A2317] dark:text-[#A8D29B]">
+                    {/* Name */}
+                    <td className="p-2 xs:p-3 md:p-4 align-top font-medium 
+                      text-[11px] xs:text-xs sm:text-sm md:text-base text-[#0A2317] dark:text-[#A8D29B]">
                       {animal.name}
                     </td>
 
-                    <td className="p-4 align-top max-w-xs">
-                      <div className="max-w-xs whitespace-pre-wrap break-words">
+                    {/* Description */}
+                    <td className="p-2 xs:p-3 md:p-4 align-top max-w-[140px] xs:max-w-[180px] sm:max-w-xs">
+                      <div className="whitespace-pre-wrap break-words">
                         <DescriptionCell text={animal.desc} />
                       </div>
                     </td>
 
-                    <td className="p-4 align-top">
-                      <span className="px-3 py-[6px] text-[12px] rounded-full bg-[#E8D8B4]/70 text-[#0A2317] ring-1 ring-black/5 dark:bg-[#3B6145] dark:text-[#A8D29B]">
+                    {/* Place */}
+                    <td className="p-2 xs:p-3 md:p-4 align-top">
+                      <span className="px-2 xs:px-3 py-[4px] xs:py-[5px] text-[9px] xs:text-[10px] sm:text-xs 
+                        rounded-full bg-[#E8D8B4]/70 text-[#0A2317] ring-1 ring-black/5 
+                        dark:bg-[#3B6145] dark:text-[#A8D29B]">
                         {animal.place}
                       </span>
                     </td>
 
-                    <td className="p-4 align-top">
-                      <span className="px-3 py-[6px] text-[12px] rounded-full bg-[#CFE3C9]/70 text-[#0A2317] ring-1 ring-black/5 dark:bg-[#3B6145] dark:text-[#A8D29B]">
+                    {/* Class */}
+                    <td className="p-2 xs:p-3 md:p-4 align-top">
+                      <span className="px-2 xs:px-3 py-[4px] xs:py-[5px] text-[9px] xs:text-[10px] sm:text-xs 
+                        rounded-full bg-[#CFE3C9]/70 text-[#0A2317] ring-1 ring-black/5 
+                        dark:bg-[#3B6145] dark:text-[#A8D29B]">
                         {animal.classes}
                       </span>
                     </td>
 
-                    <td className="p-4 align-top">
+                    {/* Update */}
+                    <td className="p-2 xs:p-3 md:p-4 align-top">
                       <Link
                         to={`/animals/${animal.id}`}
-                        className="text-[#28604F] font-semibold hover:underline dark:text-[#A8D29B]"
+                        className="text-[10px] xs:text-[11px] sm:text-xs md:text-sm 
+                        text-[#28604F] font-semibold hover:underline dark:text-[#A8D29B]"
                       >
                         Update
                       </Link>
                     </td>
 
-                    <td className="p-4 align-top">
+                    {/* Delete */}
+                    <td className="p-2 xs:p-3 md:p-4 align-top">
                       <button
                         onClick={() => {
                           if (confirm(`Delete "${animal.name}"?`)) {
                             mutation.mutate(animal.id);
                           }
                         }}
-                        className="text-sm font-semibold text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300"
+                        className="text-[10px] xs:text-[11px] sm:text-xs md:text-sm 
+                        font-semibold text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300"
                       >
                         Delete
                       </button>

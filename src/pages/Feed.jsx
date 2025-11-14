@@ -1,15 +1,13 @@
 import { Card, Typography } from "@material-tailwind/react";
 import { useState } from "react";
 import instance from "../axiox";
-import Modal from "../components/Modal";
-import Edit from "../components/Edit";
+import FeedModal from "../components/FeedModal";
 import { Link } from "react-router-dom";
 import { ScaleLoader } from "react-spinners";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import FeedModal from "../components/FeedModal";
 
-const TABLE_HEAD = ["Image", "name", "desc", "place", "classes", "edit", "delete"];
+const TABLE_HEAD = ["Image", "Name", "Description", "Place", "Class", "Edit", "Delete"];
 
 const DescriptionCell = ({ text }) => {
   const [expanded, setExpanded] = useState(false);
@@ -22,7 +20,7 @@ const DescriptionCell = ({ text }) => {
   const hasMore = words.length > 4;
 
   return (
-    <div className="text-sm leading-relaxed text-[#0A2317] dark:text-[#A8D29B]">
+    <div className="text-[10px] xs:text-[11px] sm:text-xs md:text-sm leading-relaxed text-[#0A2317] dark:text-[#A8D29B]">
       <span>{shortText}</span>
 
       {hasMore && !expanded && (
@@ -30,7 +28,7 @@ const DescriptionCell = ({ text }) => {
           className="ml-1 cursor-pointer text-[#28604F] font-medium hover:underline dark:text-[#A8D29B]"
           onClick={() => setExpanded(true)}
         >
-          …
+          ...
         </span>
       )}
 
@@ -39,7 +37,7 @@ const DescriptionCell = ({ text }) => {
           <p>{restText}</p>
           <span
             onClick={() => setExpanded(false)}
-            className="mt-1 block cursor-pointer text-sm font-medium text-[#28604F] hover:underline dark:text-[#A8D29B]"
+            className="mt-1 block cursor-pointer text-[10px] xs:text-[11px] sm:text-xs font-medium text-[#28604F] hover:underline dark:text-[#A8D29B]"
           >
             Hide
           </span>
@@ -77,8 +75,8 @@ const Feed = () => {
   if (isLoading)
     return (
       <div className="min-h-screen bg-[#E3EFEA] dark:bg-[#101715]">
-        <div className="text-center pt-[250px]">
-          <ScaleLoader height={100} width={8} color="#CFE3C9" />
+        <div className="text-center pt-[150px] sm:pt-[200px] md:pt-[250px]">
+          <ScaleLoader height={80} width={6} color="#CFE3C9" />
         </div>
       </div>
     );
@@ -86,26 +84,35 @@ const Feed = () => {
   if (error) return <h1 className="p-6 text-red-600">{error.message}</h1>;
 
   return (
-    <div className="min-h-screen bg-[#E3EFEA] dark:bg-[#101715] p-8">
-      <Card className="max-w-6xl mx-auto shadow-lg rounded-xl overflow-hidden border
-       border-gray-200 dark:border-[#3B6145] bg-white dark:bg-[#18211E]">
+    <div className="w-full min-h-screen bg-[#E3EFEA] dark:bg-[#101715] px-2 xs:px-3 sm:px-4 md:px-6 lg:px-8 py-4 md:py-8">
+      <Card className="w-full max-w-6xl mx-auto shadow-xl rounded-2xl
+       overflow-hidden border border-gray-200 dark:border-[#3B6145]
+        bg-white dark:bg-[#18211E] transition-all duration-300">
         
-        <div className="px-6 py-4 border-b border-gray-200 dark:border-[#3B6145] flex items-center justify-between bg-[#f8f9f7] dark:bg-[#1a2721]">
-          <Typography variant="h5" className="text-[#0A2317] dark:text-[#A8D29B] font-semibold">
+        {/* Header */}
+        <div className="px-3 xs:px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-200 dark:border-[#3B6145] 
+          flex items-center justify-between gap-2 bg-[#f8f9f7] dark:bg-[#1a2721]">
+          <Typography
+            variant="h5"
+            className="text-sm xs:text-base sm:text-lg md:text-xl text-[#0A2317] dark:text-[#A8D29B] font-semibold"
+          >
             Marine Animals List
           </Typography>
-          <FeedModal />
+          <div className="shrink-0">
+            <FeedModal />
+          </div>
         </div>
 
-        {/* table */}
+        {/* Table */}
         <div className="overflow-x-auto">
-          <table className="w-full text-left">
+          <table className="w-full text-left min-w-[600px]">
             <thead className="sticky top-0 bg-[#CFE3C9] dark:bg-[#3B6145] z-10">
               <tr>
                 {TABLE_HEAD.map((head) => (
                   <th
                     key={head}
-                    className="p-4 text-sm font-semibold uppercase tracking-wide text-[#0A2317] dark:text-[#A8D29B]"
+                    className="p-2 xs:p-3 md:p-4 text-[9px] xs:text-[10px] sm:text-xs md:text-sm 
+                    font-semibold uppercase tracking-wide text-[#0A2317] dark:text-[#A8D29B]"
                   >
                     {head}
                   </th>
@@ -114,60 +121,90 @@ const Feed = () => {
             </thead>
 
             <tbody>
-              {data.map((countrie, index) => (
-                <tr
-                  key={countrie.id}
-                  className={`transition-all duration-200 ${
-                    index % 2 === 0 ? "bg-white dark:bg-[#18211E]" : "bg-[#F7FAF7] dark:bg-[#1a2721]"
-                  } hover:bg-[#E6F1EC] dark:hover:bg-[#243a2f]`}
-                >
-                  <td className="p-4">
-                    <img
-                      src={countrie.img}
-                      alt={countrie.name}
-                      className="h-14 w-14 rounded-lg object-cover shadow-md ring-1 ring-gray-300 dark:ring-[#3B6145]"
-                    />
-                  </td>
-
-                  <td className="p-4 align-top font-medium text-[#0A2317] dark:text-[#A8D29B]">
-                    {countrie.name}
-                  </td>
-
-                  <td className="p-4 align-top">
-                    <DescriptionCell text={countrie.desc} />
-                  </td>
-
-                  <td className="p-4 align-top">
-                    <span className="px-3 py-1 text-sm rounded-full bg-[#E8D8B4] text-[#0A2317] dark:bg-[#3B6145] dark:text-[#A8D29B]">
-                      {countrie.place}
-                    </span>
-                  </td>
-
-                  <td className="p-4 align-top">
-                    <span className="px-3 py-1 text-sm rounded-full bg-[#CFE3C9] text-[#0A2317] dark:bg-[#3B6145] dark:text-[#A8D29B]">
-                      {countrie.classes}
-                    </span>
-                  </td>
-
-                  <td className="p-4 align-top">
-                    <Link
-                      to={`/feed/${countrie.id}`}
-                      className="text-[#28604F] font-semibold hover:underline dark:text-[#A8D29B]"
-                    >
-                      Update
-                    </Link>
-                  </td>
-
-                  <td className="p-4 align-top">
-                    <button
-                      onClick={() => mutation.mutate(countrie.id)}
-                      className="text-sm font-semibold text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300"
-                    >
-                      Delete
-                    </button>
+              {(!data || data.length === 0) ? (
+                <tr>
+                  <td
+                    colSpan={7}
+                    className="p-6 sm:p-8 md:p-10 text-center text-[11px] sm:text-sm text-gray-500 dark:text-[#A8D29B]"
+                  >
+                    No marine animals yet. Click <span className="font-semibold">Add</span> to create one 🐠
                   </td>
                 </tr>
-              ))}
+              ) : (
+                data.map((countrie, index) => (
+                  <tr
+                    key={countrie.id}
+                    className={`transition-all duration-200 border-b border-black/5 dark:border-white/10 ${
+                      index % 2 === 0
+                        ? "bg-white dark:bg-[#18211E]"
+                        : "bg-[#F7FAF7] dark:bg-[#1a2721]"
+                    } hover:bg-[#E6F1EC] dark:hover:bg-[#243a2f]`}
+                  >
+                    {/* Image */}
+                    <td className="p-2 xs:p-3 md:p-4">
+                      <img
+                        src={countrie.img}
+                        alt={countrie.name}
+                        className="h-10 w-10 xs:h-11 xs:w-11 sm:h-12 sm:w-12 md:h-14 md:w-14 
+                        rounded-lg object-cover shadow-md ring-1 ring-gray-300 dark:ring-[#3B6145]"
+                      />
+                    </td>
+
+                    {/* Name */}
+                    <td className="p-2 xs:p-3 md:p-4 align-top font-medium 
+                      text-[11px] xs:text-xs sm:text-sm md:text-base text-[#0A2317] dark:text-[#A8D29B]">
+                      {countrie.name}
+                    </td>
+
+                    {/* Description */}
+                    <td className="p-2 xs:p-3 md:p-4 align-top max-w-[140px] xs:max-w-[180px] sm:max-w-xs">
+                      <div className="whitespace-pre-wrap break-words">
+                        <DescriptionCell text={countrie.desc} />
+                      </div>
+                    </td>
+
+                    {/* Place */}
+                    <td className="p-2 xs:p-3 md:p-4 align-top">
+                      <span className="px-2 xs:px-3 py-[4px] xs:py-[5px] text-[9px] xs:text-[10px] sm:text-xs 
+                        rounded-full bg-[#E8D8B4]/70 text-[#0A2317] ring-1 ring-black/5 
+                        dark:bg-[#3B6145] dark:text-[#A8D29B]">
+                        {countrie.place}
+                      </span>
+                    </td>
+
+                    {/* Class */}
+                    <td className="p-2 xs:p-3 md:p-4 align-top">
+                      <span className="px-2 xs:px-3 py-[4px] xs:py-[5px] text-[9px] xs:text-[10px] sm:text-xs 
+                        rounded-full bg-[#CFE3C9]/70 text-[#0A2317] ring-1 ring-black/5 
+                        dark:bg-[#3B6145] dark:text-[#A8D29B]">
+                        {countrie.classes}
+                      </span>
+                    </td>
+
+                    {/* Update */}
+                    <td className="p-2 xs:p-3 md:p-4 align-top">
+                      <Link
+                        to={`/feed/${countrie.id}`}
+                        className="text-[10px] xs:text-[11px] sm:text-xs md:text-sm 
+                        text-[#28604F] font-semibold hover:underline dark:text-[#A8D29B]"
+                      >
+                        Update
+                      </Link>
+                    </td>
+
+                    {/* Delete */}
+                    <td className="p-2 xs:p-3 md:p-4 align-top">
+                      <button
+                        onClick={() => mutation.mutate(countrie.id)}
+                        className="text-[10px] xs:text-[11px] sm:text-xs md:text-sm 
+                        font-semibold text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
