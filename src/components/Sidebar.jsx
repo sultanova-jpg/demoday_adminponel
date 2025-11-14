@@ -27,10 +27,7 @@ const Sidebar = () => {
       document.body.classList.remove("dark");
     }
     }, [isDark])
-  function change() {
-    document.documentElement.classList.toggle("dark");
-    setIsDark((v) => !v);
-  }
+ 
 
   const navItems = useMemo(
     () => [
