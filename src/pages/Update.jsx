@@ -66,7 +66,7 @@ const Update = () => {
   return (
     <div className="min-h-screen bg-[#E3EFEA] dark:bg-[#101715] flex justify-center px-3 sm:px-4 py-6 sm:py-10">
       {/* чтобы карточка была по центру и не липла к одной стороне */}
-      <div className="w-full max-w-lg sm:max-w-4xl lg:max-w-5xl mx-auto">
+      <div className="w-full max-w-lg sm:mx-auto lg:mx-auto mx-auto">
         <Card className="w-full shadow-xl rounded-2xl border border-gray-200 
         dark:border-[#3B6145] bg-white dark:bg-[#18211E]">
           <DialogHeader className="relative m-0 px-4 sm:px-6 pt-5 pb-3 border-b
