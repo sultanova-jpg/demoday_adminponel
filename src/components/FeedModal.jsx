@@ -101,7 +101,14 @@ const FeedModal = () => {
             </IconButton>
           </DialogHeader>
 
-          <DialogBody className="space-y-4 pb-6 pt-4">
+          {/* ----------- SCROLL ADDED HERE ---------- */}
+          <DialogBody
+            className="
+              space-y-4 pb-6 pt-4
+              max-h-[70vh] overflow-y-auto
+              scrollbar-thin scrollbar-thumb-[#3B6145] scrollbar-track-transparent
+            "
+          >
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div className="flex gap-4 flex-col sm:flex-row">
                 <div className="flex-1">

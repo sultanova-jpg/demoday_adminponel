@@ -70,12 +70,12 @@ const Animals = () => {
     },
   });
 
-  if (isLoading)
-    return (
-      <div className="text-center pt-[150px] sm:pt-[200px] md:pt-[250px]">
-        <ScaleLoader height={80} width={6} color="#CFE3C9" />
-      </div>
-    );
+  // if (isLoading)
+  //   return (
+  //     <div className="text-center pt-[150px] sm:pt-[200px] md:pt-[250px]">
+  //       <ScaleLoader height={80} width={6} color="#CFE3C9" />
+  //     </div>
+  //   );
 
   if (error) return <h1>{error.message}</h1>;
 

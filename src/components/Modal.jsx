@@ -41,13 +41,10 @@ const Modal = () => {
 
   const onSubmit = (data) => {
     mutation.mutate(data);
-    // если хочешь, чтобы модалка закрывалась только при успешном запросе — 
-    // перенеси handleOpen() в onSuccess
   };
 
   return (
     <div>
-      {/* Кнопка открытия модалки */}
       <Button
         onClick={handleOpen}
         className="
@@ -62,7 +59,6 @@ const Modal = () => {
         Add Product
       </Button>
 
-      {/* Диалог */}
       <Dialog
         size="sm"
         open={open}
@@ -93,7 +89,14 @@ const Modal = () => {
           </IconButton>
         </DialogHeader>
 
-        <DialogBody className="space-y-4 pb-4 pt-4">
+        {/* ------------ SCROLL ADDED HERE ------------- */}
+        <DialogBody
+          className="
+            space-y-4 pb-4 pt-4
+            max-h-[70vh] overflow-y-auto
+            scrollbar-thin scrollbar-thumb-[#3B6145] scrollbar-track-transparent
+          "
+        >
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             {/* Image + Name */}
             <div className="flex gap-4 flex-col sm:flex-row">
@@ -116,9 +119,7 @@ const Modal = () => {
                     dark:!border-[#3B6145] dark:bg-[#101715]
                     dark:text-[#A8D29B]
                   "
-                  labelProps={{
-                    className: "hidden",
-                  }}
+                  labelProps={{ className: "hidden" }}
                   containerProps={{ className: "!min-w-full" }}
                 />
               </div>
@@ -142,9 +143,7 @@ const Modal = () => {
                     dark:!border-[#3B6145] dark:bg-[#101715]
                     dark:text-[#A8D29B]
                   "
-                  labelProps={{
-                    className: "hidden",
-                  }}
+                  labelProps={{ className: "hidden" }}
                   containerProps={{ className: "!min-w-full" }}
                 />
               </div>
@@ -171,9 +170,7 @@ const Modal = () => {
                     dark:!border-[#3B6145] dark:bg-[#101715]
                     dark:text-[#A8D29B]
                   "
-                  labelProps={{
-                    className: "hidden",
-                  }}
+                  labelProps={{ className: "hidden" }}
                   containerProps={{ className: "!min-w-full" }}
                 />
               </div>
@@ -197,9 +194,7 @@ const Modal = () => {
                     dark:!border-[#3B6145] dark:bg-[#101715]
                     dark:text-[#A8D29B]
                   "
-                  labelProps={{
-                    className: "hidden",
-                  }}
+                  labelProps={{ className: "hidden" }}
                   containerProps={{ className: "!min-w-full" }}
                 />
               </div>
@@ -224,13 +219,11 @@ const Modal = () => {
                   dark:bg-[#101715] dark:text-[#A8D29B]
                   dark:!border-[#3B6145] dark:!border-t-[#3B6145]
                 "
-                labelProps={{
-                  className: "hidden",
-                }}
+                labelProps={{ className: "hidden" }}
               />
             </div>
 
-            {/* Кнопка сабмита */}
+            {/* Submit button */}
             <div className="flex justify-end pt-2">
               <Button
                 type="submit"
@@ -240,7 +233,6 @@ const Modal = () => {
                   dark:bg-[#A8D29B] dark:text-[#18211E]
                   dark:hover:bg-[#3B6145] dark:hover:text-[#A8D29B]
                 "
-                // Если хочешь, чтобы модалка закрывалась сразу — оставь:
                 onClick={handleOpen}
               >
                 Add Product

@@ -72,14 +72,14 @@ const Feed = () => {
     },
   });
 
-  if (isLoading)
-    return (
-      <div className="min-h-screen bg-[#E3EFEA] dark:bg-[#101715]">
-        <div className="text-center pt-[150px] sm:pt-[200px] md:pt-[250px]">
-          <ScaleLoader height={80} width={6} color="#CFE3C9" />
-        </div>
-      </div>
-    );
+  // if (isLoading)
+  //   return (
+  //     <div className="min-h-screen bg-[#E3EFEA]  dark:bg-[#101715]">
+  //       <div className="text-center pt-[150px]    sm:pt-[200px]  md:pt-[250px]">
+  //         <ScaleLoader height={80} width={6} className="" color="#CFE3C9" />
+  //       </div>
+  //     </div>
+  //   );
 
   if (error) return <h1 className="p-6 text-red-600">{error.message}</h1>;
 
@@ -213,4 +213,4 @@ const Feed = () => {
   );
 };
 
-export default Feed;
+export default Feed;                  
