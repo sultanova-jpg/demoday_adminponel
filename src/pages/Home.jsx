@@ -41,12 +41,12 @@ const Home = () => {
     queryFn: handleFeed,
   });
 
-  if (isLoading)
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[#E3EFEA] dark:bg-[#101715]">
-        <ScaleLoader height={80} width={6} color="#CFE3C9" />
-      </div>
-    );
+  // if (isLoading)
+  //   return (
+  //     <div className="min-h-screen flex items-center justify-center bg-[#E3EFEA] dark:bg-[#101715]">
+  //       <ScaleLoader height={80} width={6} color="#CFE3C9" />
+  //     </div>
+  //   );
 
   if (error) return <h1 className="p-4 text-red-600">{error.message}</h1>;
 
